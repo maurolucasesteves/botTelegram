@@ -1,13 +1,13 @@
 import os
-from dotenv import load_dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler
 
-# Carregar variáveis do arquivo .env
-load_dotenv()
-
-# Token do bot armazenado no arquivo .env
+# Token do bot carregado diretamente da variável de ambiente
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+
+# Verificação do token
+if not TOKEN:
+    raise ValueError("Erro: Token do bot não encontrado. Certifique-se de configurá-lo no Railway.")
 
 # Função para exibir o menu principal
 async def start(update, context):
@@ -20,7 +20,6 @@ async def start(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Escolha uma opção:", reply_markup=reply_markup)
 
-# Função para lidar com os botões do menu
 async def button_callback(update, context):
     query = update.callback_query
     await query.answer()
@@ -44,18 +43,13 @@ async def button_callback(update, context):
         await start(update.callback_query, context)
 
 def main():
-    if not TOKEN:
-        raise ValueError("Erro: Token do bot não encontrado. Verifique o arquivo .env.")
-
     application = Application.builder().token(TOKEN).build()
 
-    # Handlers para comandos e mensagens
+    # Handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button_callback))
 
-    # Iniciar o bot
     application.run_polling()
 
 if __name__ == "__main__":
     main()
-
