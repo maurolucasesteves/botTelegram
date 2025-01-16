@@ -28,7 +28,7 @@ Navegue pelas opções no menu interativo.
 Utilize os botões para acessar informações ou entrar em contato.
 Desenvolvedor
 Mauro Lucas Esteves
-LinkedIn: Mauro Lucas Esteves
+LinkedIn: [Mauro Lucas Esteves](https://www.linkedin.com/in/maurolucasesteves/)
 E-mail: contato@maurolucasesteves.com.br
 Contribuições
 Se você quiser contribuir para este projeto, fique à vontade para enviar um pull request ou relatar problemas na aba de issues.
