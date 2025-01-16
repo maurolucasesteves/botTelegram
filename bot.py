@@ -15,11 +15,12 @@ async def start(update, context):
         [InlineKeyboardButton("Quem Sou", callback_data="quem_sou")],
         [InlineKeyboardButton("LinkedIn", url="https://www.linkedin.com/in/maurolucasesteves/")],
         [InlineKeyboardButton("WhatsApp", url="https://api.whatsapp.com/send/?phone=5518996861195&text=Mauro%20Lucas%20Esteves,%20(*L*)%20Seja%20Bem%20Vindo!&type=phone_number&app_absent=0")],
-        [InlineKeyboardButton("Como como posso te Ajudar", callback_data="como_ajudar")]
+        [InlineKeyboardButton("Como posso te Ajudar", callback_data="como_ajudar")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Escolha uma opção:", reply_markup=reply_markup)
 
+# Função para lidar com os botões do menu
 async def button_callback(update, context):
     query = update.callback_query
     await query.answer()
@@ -43,12 +44,14 @@ async def button_callback(update, context):
         await start(update.callback_query, context)
 
 def main():
+    # Cria a aplicação
     application = Application.builder().token(TOKEN).build()
 
-    # Handlers
+    # Adiciona os handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button_callback))
 
+    # Executa o bot
     application.run_polling()
 
 if __name__ == "__main__":
